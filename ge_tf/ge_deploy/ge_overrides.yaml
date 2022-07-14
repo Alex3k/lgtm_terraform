@@ -1,0 +1,23 @@
+grafana.ini:
+  enterprise:
+    license_path: /etc/grafana/license/license.jwt
+  server:
+    root_url: http://${ge_ip}:3000/
+service:
+  loadBalancerIP: ${ge_ip}
+  type: LoadBalancer
+  port: 3000
+
+extraSecretMounts:
+  - name: ge-secrets
+    mountPath: /etc/grafana/license
+    secretName: ge-secrets
+
+admin:
+  existingSecret: "ge-secrets"
+  userKey: admin_user
+  passwordKey: admin_password
+
+image:
+  repository: grafana/grafana-enterprise
+  tag: latest
