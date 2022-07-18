@@ -1,24 +1,29 @@
-variable "gcp_svc_acc_file_path" {
-  type    = string
-  default = "gcp-svc-acc.json"
+variable "gcp_project_id" {
+  type        = string
+  default     = "solutions-engineering-248511"
+  description = "The GCP Project ID to use for this deployment"
+  nullable    = false
 }
 
-variable "gcp_project_id" {
-  type    = string
-  default = "solutions-engineering-248511"
+variable "gcp_svc_acc_file_path" {
+  type        = string
+  description = "The path to a GCP service account JSON license file which has Editor permissions to the GCP project"
+  nullable    = false
+  validation {
+    condition     = fileexists(var.gcp_svc_acc_file_path)
+    error_message = "The file must exist"
+  }
 }
 
 variable "gcp_region" {
-  type    = string
-  default = "us-central1"
+  type        = string
+  default     = "us-central1"
+  description = "The region to deploy everything in"
+  nullable    = false
 }
 
 variable "owner_name" {
-  type    = string
-  default = "alexkirtleyclose"
-}
-
-variable "gem_cluster_name" {
-  type    = string
-  default = "gem"
+  type        = string
+  description = "Your name in lowercase and without spaces for GCP resource identification purposes."
+  nullable    = false
 }

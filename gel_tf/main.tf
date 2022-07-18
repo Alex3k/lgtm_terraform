@@ -97,7 +97,7 @@ resource "kubernetes_secret" "gel_secrets" {
   }
   data = {
     "gcp_service_account.json" = base64decode(google_service_account_key.gcp_sa_key.private_key)
-    "gel-license.jwt"     =  var.gel_license_contents
+    "gel-license.jwt"          = file(var.gel_license_file)
   }
 
   depends_on = [
@@ -122,3 +122,7 @@ resource "helm_release" "gel" {
     kubernetes_secret.gel_secrets
   ]
 }
+
+output "kubectl_cmd" {
+  value = "gcloud container clusters get-credentials ${var.gcp_gel_gke_cluster_name} --region ${var.gcp_region} --project ${var.gcp_project_id}"
+} 

@@ -41,8 +41,8 @@ resource "kubernetes_secret" "ge_secrets" {
     name = "ge-secrets"
   }
   data = {
-    "license.jwt" = var.ge_license_contents
-    "admin_user" = "admin"
+    "license.jwt"    = file(var.ge_license_file)
+    "admin_user"     = "admin"
     "admin_password" = random_password.ge_password.result
   }
 }
@@ -65,15 +65,15 @@ resource "helm_release" "ge" {
 
 
 output "grafana_ip" {
-  value = var.ge_ip_address
+  value = "http://${var.ge_ip_address}:3000"
 }
 
 output "grafana_username" {
-  value = kubernetes_secret.ge_secrets.data.admin_user
-   sensitive = true
+  value     = kubernetes_secret.ge_secrets.data.admin_user
+  sensitive = true
 }
 
 output "grafana_password" {
-  value = random_password.ge_password.result
+  value     = random_password.ge_password.result
   sensitive = true
 }

@@ -10,7 +10,7 @@ provider "google" {
 }
 
 resource "google_compute_address" "ge_ip_address" {
-  name   = "${var.owner_name}-${var.gem_cluster_name}-ip"
+  name   = "${var.owner_name}-ge-ip"
   region = var.gcp_region
 }
 

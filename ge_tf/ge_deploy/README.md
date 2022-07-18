@@ -4,7 +4,7 @@ You will need a service account which has editor permissions to a GCP project. T
 To set up the GE environment:
 - `terraform init`
 - `terraform validate`
-- `terraform apply -var owner_name="" -var gcp_svc_acc_file_path="" -var gke_cluster_name="" -var ge_ip_address="" -var ge_license_contents=""`
+- `terraform apply -var owner_name="" -var gcp_svc_acc_file_path="" -var gke_cluster_name="" -var ge_ip_address="" -var ge_license_file=""`
 
 Use the IP address outputed from the `env_setup` process and the contents of the license from your friendly Grafana Labs team member.
 
